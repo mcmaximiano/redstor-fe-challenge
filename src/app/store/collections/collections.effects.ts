@@ -12,13 +12,13 @@ export class CollectionsEffects {
   loadCollections$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CollectionsActions.loadCollections),
-      switchMap(() =>
+      switchMap(({ page, perPage }) =>
         this.unsplash
-          .listCollections()
+          .listCollections(page, perPage)
           .pipe(
             map(result =>
               result.type === 'success'
-                ? CollectionsActions.loadCollectionsSuccess(result.response.results || [])
+                ? CollectionsActions.loadCollectionsSuccess(result.response.results || [], result.response.total || 0)
                 : CollectionsActions.loadCollectionsFailure()
             )
           )
