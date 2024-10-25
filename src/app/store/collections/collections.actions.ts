@@ -1,4 +1,4 @@
-import { ICollection } from '@app/interfaces';
+import { ICollection, IPhoto } from '@app/interfaces';
 import { createAction, props } from '@ngrx/store';
 
 export namespace CollectionsActions {
@@ -8,4 +8,10 @@ export namespace CollectionsActions {
     total
   }));
   export const loadCollectionsFailure = createAction('[Collections] Load Collections failure');
+  export const loadCollectionPhotos = createAction('[Collections] Load Collection Photos', props<{ collectionId: any }>());
+  export const loadCollectionPhotosSuccess = createAction('[Collections] Load Collection Photos success', (photos: IPhoto[], total: number) => ({
+    photos,
+    total
+  }));
+  export const loadCollectionPhotosFailure = createAction('[Collections] Load Collection Photos failure');
 }

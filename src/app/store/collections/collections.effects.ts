@@ -25,4 +25,21 @@ export class CollectionsEffects {
       )
     )
   );
+
+  loadCollectionPhotos$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CollectionsActions.loadCollectionPhotos),
+      switchMap(({ collectionId }) =>
+        this.unsplash
+          .listCollectionPhotos(collectionId)
+          .pipe(
+            map(result =>
+              result.type === 'success'
+                ? CollectionsActions.loadCollectionPhotosSuccess(result.response.results || [], result.response.total || 0)
+                : CollectionsActions.loadCollectionPhotosFailure()
+            )
+          )
+      )
+    )
+  );
 }

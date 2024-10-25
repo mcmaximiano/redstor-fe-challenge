@@ -1,31 +1,32 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IPhoto } from '@app/interfaces';
-import { UnsplashService } from '@app/services';
+import { SharedModule } from '../../shared/shared.module';
+import { CollectionsFacade } from '../../store';
 
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [SharedModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule],
+  standalone: true,
 })
 export class CollectionComponent implements OnInit {
-  private readonly unsplashService: UnsplashService = inject(UnsplashService);
   private readonly router: Router = inject(Router);
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-  readonly photos$: BehaviorSubject<IPhoto[]> = new BehaviorSubject<IPhoto[]>([]);
-  // toDo Is there another way using new Angular features to replace rjxs
-  readonly isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  constructor(private readonly collectionsFacade: CollectionsFacade) { }
+
+  readonly photos$ = this.collectionsFacade.photos$;
+  // Done- Is there another way using new Angular features to replace rjxs. Use Angular's Signals
+  readonly isLoading$ = this.collectionsFacade.isLoading$;
 
   ngOnInit(): void {
-    this.isLoading$.next(true);
-    const collectionId = this.activatedRoute.snapshot.params['collectionId'];
-
-    this.unsplashService.listCollectionPhotos(collectionId).subscribe(photos => {
-      this.photos$.next(photos?.response?.results || []);
-      this.isLoading$.next(false);
-    });
+    this.collectionsFacade.listCollectionPhotos(this.activatedRoute.snapshot.params['collectionId']);
   }
 
   handleGotoPhoto(photo: IPhoto) {

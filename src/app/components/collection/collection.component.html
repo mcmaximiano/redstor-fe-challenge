@@ -1,31 +1,29 @@
-<!-- toDo Could you optimise this piece of code? -->
-<mat-toolbar>
-  <span>Redstor FE Challenger</span>
-</mat-toolbar>
+<!-- Done-toDo Could you optimise this piece of code? Moved the header to its own component since it is not specific to this one -->
+<app-header></app-header>
 
 <!-- toDo Could you optimise this piece of code? -->
 <div class="breadcrumbs">
   <a routerLink="/"><span>Collections</span></a>
   <span>></span>
-  <a class="active"><span>Collection</span></a>
+  <span>Collection</span>
 </div>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading$ | async"></mat-progress-bar>
+  <!-- Done-toDo Could you optimise this piece of code? Using Signal -->
+  <mat-progress-bar *ngIf="isLoading$()"></mat-progress-bar>
 
   <div class="gallery">
     <!-- toDO Could you improve the styling to be responsive? -->
-    <ng-container *ngFor="let photo of photos$ | async">
-      <mat-card class="gallery-item thumbnails" (click)="handleGotoPhoto(photo)">
-        <img mat-card-image [src]="photo.urls.small" [alt]="photo.alt_description" />
-        <mat-card-content fxLayout="row" fxLayoutAlign="end" fxLayoutGap="12px">
-          <p>
-            <mat-icon inline>favorite</mat-icon>
-            {{ photo.likes }} likes
-          </p>
-        </mat-card-content>
-      </mat-card>
-    </ng-container>
+    @for (photo of photos$(); track $index) {
+    <mat-card class="gallery-item thumbnails" (keydown)="handleGotoPhoto(photo)">
+      <img mat-card-image [src]="photo.urls.small" [alt]="photo.alt_description" />
+      <mat-card-content fxLayout="row" fxLayoutAlign="end" fxLayoutGap="12px">
+        <p>
+          <mat-icon inline>favorite</mat-icon>
+          {{ photo.likes }} likes
+        </p>
+      </mat-card-content>
+    </mat-card>
+    }
   </div>
 </div>

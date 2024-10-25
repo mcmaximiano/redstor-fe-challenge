@@ -1,19 +1,17 @@
-<!-- Done-toDo Could you optimise this piece of code? Added role to improve accessibility -->
-<mat-toolbar role="banner">
-  <span>Redstor FE Challenger</span>
-</mat-toolbar>
+<!-- Done- Could you optimise this piece of code? Moved the header to its own component since it is not specific to this one -->
+<app-header></app-header>
 
-<!-- Done-toDo Could you optimise this piece of code? Shouldn't be an anchor element since it is not a link -->
+<!-- Done- Could you optimise this piece of code? Shouldn't be an anchor element since it is not a link -->
 <div class="breadcrumbs">
-  <span><strong>Collections</strong></span>
+  <span>Collections</span>
 </div>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
+  <!-- Done- Could you optimise this piece of code? Using Signal -->
   <mat-progress-bar *ngIf="isLoading$()"></mat-progress-bar>
 
   <div class="gallery">
-    <!-- Done-toDo Is there another way to rewrite this with new Angular 17 features? Using @for -->
+    <!-- Done- Is there another way to rewrite this with new Angular 17 features? Using @for -->
     <!-- toDO Could you improve the styling to be responsive? -->
     @for (collection of collections$(); track $index) {
 
