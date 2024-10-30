@@ -7,4 +7,5 @@ export namespace CollectionsSelectors {
   export const selectCollections = createSelector(selectCollectionsFeature, (state: fromCollections.State) => state.collections);
   export const selectPhotos = createSelector(selectCollectionsFeature, (state: fromCollections.State) => state.photos);
   export const selectTotal = createSelector(selectCollectionsFeature, (state: fromCollections.State) => state.total);
+  export const selectCurrentPhoto = createSelector(selectCollectionsFeature, (state: fromCollections.State) => state.currentPhoto);
 }

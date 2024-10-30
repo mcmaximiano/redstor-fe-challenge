@@ -1,29 +1,33 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IPhoto } from '@app/interfaces';
-import { UnsplashService } from '@app/services';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { SharedModule } from '../../shared/shared.module';
+import { CollectionsFacade } from '../../store';
+import { FormatPhotoDescriptionPipe } from '../../pipes/format-photo-description.pipe';
 
-// toDo Is there a way to improve the rendering strategy in this component?
+// Done-toDo Is there a way to improve the rendering strategy in this component? Use changeDetection
 @Component({
   selector: 'app-photo',
-  templateUrl: './photo.component.html'
+  templateUrl: './photo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule, SharedModule, FormatPhotoDescriptionPipe],
+  standalone: true,
+  styleUrl: './photo.component.scss',
 })
 export class PhotoComponent implements OnInit {
-  private readonly unsplashService: UnsplashService = inject(UnsplashService);
   private readonly router: Router = inject(Router);
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-  readonly photo$: BehaviorSubject<IPhoto> = new BehaviorSubject<IPhoto>({} as IPhoto);
-  readonly isLoading$: Observable<boolean> = this.photo$.pipe(map(p => !p));
+  constructor(private readonly collectionsFacade: CollectionsFacade) { }
+
+  readonly photo = this.collectionsFacade.photo$;
+  readonly isLoading = this.collectionsFacade.isLoading$;
 
   ngOnInit(): void {
-    const photoId = this.activatedRoute.snapshot.params['photoId'];
-
-    this.unsplashService.getPhoto(photoId).subscribe(photo => {
-      // toDo Is there a better way to improve this object mapping?
-      this.photo$.next(photo.response as unknown as IPhoto);
-    });
+    this.collectionsFacade.loadPhoto(this.activatedRoute.snapshot.params['photoId']);
   }
 
   handleGotoCollection() {

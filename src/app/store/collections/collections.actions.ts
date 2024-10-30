@@ -14,4 +14,7 @@ export namespace CollectionsActions {
     total
   }));
   export const loadCollectionPhotosFailure = createAction('[Collections] Load Collection Photos failure');
+  export const loadCurrentPhoto = createAction('[Collections] Load Current Photo', props<{ photoId: any }>());
+  export const loadCurrentPhotoSuccess = createAction('[Collections] Load Current Photo success', (photo: IPhoto) => ({ photo }));
+  export const loadCurrentPhotoFailure = createAction('[Collections] Load Current Photo failure');
 }

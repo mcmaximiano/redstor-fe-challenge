@@ -5,7 +5,7 @@
 <div class="breadcrumbs">
   <a routerLink="/"><span>Collections</span></a>
   <span>></span>
-  <span>Collection</span>
+  <a><span>Collection</span></a>
 </div>
 
 <div class="layout-container">
@@ -15,7 +15,7 @@
   <div class="gallery">
     <!-- toDO Could you improve the styling to be responsive? -->
     @for (photo of photos$(); track $index) {
-    <mat-card class="gallery-item thumbnails" (keydown)="handleGotoPhoto(photo)">
+    <mat-card class="gallery-item thumbnails" (click)="handleGotoPhoto(photo)">
       <img mat-card-image [src]="photo.urls.small" [alt]="photo.alt_description" />
       <mat-card-content fxLayout="row" fxLayoutAlign="end" fxLayoutGap="12px">
         <p>

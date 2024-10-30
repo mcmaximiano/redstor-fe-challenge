@@ -1,7 +1,5 @@
-<!-- toDo Could you optimise this piece of code? -->
-<mat-toolbar>
-  <span>Redstor FE Challenger</span>
-</mat-toolbar>
+<!-- Done- Could you optimise this piece of code? Moved the header to its own component since it is not specific to this one -->
+<app-header></app-header>
 
 <!-- toDo Could you optimise this piece of code? -->
 <div class="breadcrumbs">
@@ -13,14 +11,14 @@
 </div>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading$ | async"></mat-progress-bar>
+  <!-- Done-toDo Could you optimise this piece of code? Using ng-container-->
+  <ng-container *ngIf="isLoading()">
+    <mat-progress-bar></mat-progress-bar>
+  </ng-container>
 
   <div class="gallery" fxLayout.sm="column">
-    <!-- toDO Could you improve the styling to be responsive? -->
-    <mat-card *ngIf="photo$ | async as photo" class="preview">
-      <!-- toDO Why is throwing some console errors? -->
-
+    <!-- Done-toDO Could you improve the styling to be responsive? Using scss-->
+    <mat-card *ngIf="photo() as photo" class="preview">
       <mat-card-header>
         <img mat-card-avatar [src]="photo.user.profile_image.medium" />
         <mat-card-title>{{ photo.user.first_name }} {{ photo.user.last_name }}</mat-card-title>
@@ -33,8 +31,8 @@
       <mat-card-content>
         <div>
           <div>
-            <!-- toDO Is there another way to do this operation? -->
-            <p>{{ photo.description.charAt(0).toUpperCase() }}{{ photo.description.slice(1) }}</p>
+            <!-- Done-toDO Is there another way to do this operation? Using a pipe -->
+            <p>{{ photo.description | formatPhotoDescription }}</p>
           </div>
           <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="end">
             <p fxLayoutAlign="center">
@@ -46,7 +44,6 @@
           </div>
         </div>
       </mat-card-content>
-
       <img mat-card-image [src]="photo.urls.full" [alt]="photo.alt_description" />
     </mat-card>
   </div>

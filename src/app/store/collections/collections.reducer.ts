@@ -9,6 +9,7 @@ export interface State {
   collections: ICollection[];
   photos: IPhoto[];
   total: number;
+  currentPhoto: IPhoto | null;
 }
 
 export const initialState: State = {
@@ -16,6 +17,7 @@ export const initialState: State = {
   collections: [],
   photos: [],
   total: 0,
+  currentPhoto: null
 };
 
 export const reducer = createReducer(
@@ -26,4 +28,7 @@ export const reducer = createReducer(
   on(CollectionsActions.loadCollectionPhotos, (state) => ({ ...state, isLoading: true })),
   on(CollectionsActions.loadCollectionPhotosSuccess, (state, { photos, total }) => ({ ...state, photos, isLoading: false, total })),
   on(CollectionsActions.loadCollectionPhotosFailure, (state) => ({ ...state, isLoading: false, total: 0 })),
+  on(CollectionsActions.loadCurrentPhoto, (state) => ({ ...state, isLoading: true })),
+  on(CollectionsActions.loadCurrentPhotoSuccess, (state, { photo }) => ({ ...state, currentPhoto: photo, isLoading: false })),
+  on(CollectionsActions.loadCurrentPhotoFailure, (state) => ({ ...state, isLoading: false })),
 );

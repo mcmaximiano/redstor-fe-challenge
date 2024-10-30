@@ -12,6 +12,7 @@ export class CollectionsFacade {
   readonly collections$: Signal<ICollection[]> = this.store.selectSignal(CollectionsSelectors.selectCollections);
   readonly photos$: Signal<IPhoto[]> = this.store.selectSignal(CollectionsSelectors.selectPhotos);
   readonly total$: Signal<number> = this.store.selectSignal(CollectionsSelectors.selectTotal);
+  readonly photo$: Signal<IPhoto | null> = this.store.selectSignal(CollectionsSelectors.selectCurrentPhoto);
 
   loadCollections(pageIndex: number = 0, perPage: number = 10) {
     this.store.dispatch(CollectionsActions.loadCollections({ page: ++pageIndex, perPage }));
@@ -19,5 +20,9 @@ export class CollectionsFacade {
 
   listCollectionPhotos(collectionId: string) {
     this.store.dispatch(CollectionsActions.loadCollectionPhotos({ collectionId }));
+  }
+
+  loadPhoto(photoId: string) {
+    this.store.dispatch(CollectionsActions.loadCurrentPhoto({ photoId }));
   }
 }

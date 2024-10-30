@@ -3,6 +3,7 @@ import { UnsplashService } from '@app/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CollectionsActions } from './collections.actions';
 import { map, switchMap } from 'rxjs';
+import { IPhoto } from '../../interfaces';
 
 @Injectable()
 export class CollectionsEffects {
@@ -37,6 +38,23 @@ export class CollectionsEffects {
               result.type === 'success'
                 ? CollectionsActions.loadCollectionPhotosSuccess(result.response.results || [], result.response.total || 0)
                 : CollectionsActions.loadCollectionPhotosFailure()
+            )
+          )
+      )
+    )
+  );
+
+  loadCurrentPhoto$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CollectionsActions.loadCurrentPhoto),
+      switchMap(({ photoId }) =>
+        this.unsplash
+          .getPhoto(photoId)
+          .pipe(
+            map(result =>
+              result.type === 'success'
+                ? CollectionsActions.loadCurrentPhotoSuccess(result.response as unknown as IPhoto)
+                : CollectionsActions.loadCurrentPhotoFailure()
             )
           )
       )
