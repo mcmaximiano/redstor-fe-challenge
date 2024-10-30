@@ -7,13 +7,14 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionsFacade } from '../../store';
 import { FormatPhotoDescriptionPipe } from '../../pipes/format-photo-description.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 // Done-toDo Is there a way to improve the rendering strategy in this component? Use changeDetection
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule, SharedModule, FormatPhotoDescriptionPipe],
+  imports: [TranslateModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule, SharedModule, FormatPhotoDescriptionPipe],
   standalone: true,
   styleUrl: './photo.component.scss',
 })

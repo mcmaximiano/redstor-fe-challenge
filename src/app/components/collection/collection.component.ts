@@ -7,12 +7,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IPhoto } from '@app/interfaces';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionsFacade } from '../../store';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SharedModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule],
+  imports: [TranslateModule, SharedModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule],
   standalone: true,
 })
 export class CollectionComponent implements OnInit {

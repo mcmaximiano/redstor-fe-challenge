@@ -1,7 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
+import { NgModule } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { TranslateModule } from '@ngx-translate/core';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -10,6 +13,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   imports: [
     MatToolbarModule,
     CommonModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    TranslateModule,
   ],
   exports: [
     HeaderComponent,

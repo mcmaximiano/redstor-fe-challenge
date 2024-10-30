@@ -1,3 +1,10 @@
-<mat-toolbar header="banner">
-  <span>Redstor FE Challenger</span>
+<mat-toolbar>
+  <span>{{ "PAGE_TITLE" | translate }}</span>
+  <mat-form-field appearance="outline" class="language-dropdown">
+    <mat-label>{{ 'LANGUAGE' | translate }}</mat-label>
+    <mat-select class="language-dropdown" (selectionChange)="switchLanguage($event.value)" placeholder={{language}}>
+      <mat-option value="en">EN</mat-option>
+      <mat-option value="pt">PT</mat-option>
+    </mat-select>
+  </mat-form-field>
 </mat-toolbar>

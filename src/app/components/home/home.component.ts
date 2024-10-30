@@ -7,13 +7,14 @@ import { RouterModule } from '@angular/router';
 import { UnsplashService } from '@app/services';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionsFacade } from '../../store';
+import { TranslateModule } from '@ngx-translate/core';
 
 // Done- Transform this module in a standalone component
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SharedModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatPaginatorModule],
+  imports: [TranslateModule, SharedModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatPaginatorModule],
   standalone: true,
 })
 export class HomeComponent implements OnInit {

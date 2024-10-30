@@ -3,11 +3,11 @@
 
 <!-- toDo Could you optimise this piece of code? -->
 <div class="breadcrumbs">
-  <a routerLink="/"><span>Collections</span></a>
+  <a routerLink="/"><span>{{ 'COLLECTIONS' | translate }}</span></a>
   <span>></span>
-  <a (click)="handleGotoCollection()"><span>Collection</span></a>
+  <a (click)="handleGotoCollection()"><span>{{ 'COLLECTION' | translate }}</span></a>
   <span>></span>
-  <a class="active"><span>Photo</span></a>
+  <a class="active"><span>{{ 'PHOTO' | translate }}</span></a>
 </div>
 
 <div class="layout-container">
